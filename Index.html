@@ -3,60 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>สมัครรับสปอนเซอร์</title>
+    <title>Sponsor System - Member</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-    <style> body { font-family: 'Kanit', sans-serif; } </style>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style> body { font-family: 'Prompt', sans-serif; } </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+<body class="bg-slate-100 min-h-screen">
 
-    <div class="bg-white shadow-xl rounded-2xl w-full max-w-md overflow-hidden">
-        <div class="bg-blue-600 p-6 text-center">
-            <h1 class="text-2xl font-bold text-white">🌟 สนใจรับสปอนเซอร์</h1>
-            <p class="text-blue-100 text-sm">กรอกข้อมูลเพื่อยื่นเรื่องให้แอดมินพิจารณา</p>
-        </div>
-
-        <div class="flex border-b">
-            <button onclick="showTab('register')" id="btn-register" class="w-1/2 py-3 font-semibold text-blue-600 border-b-2 border-blue-600 bg-blue-50">สมัครใหม่</button>
-            <button onclick="showTab('status')" id="btn-status" class="w-1/2 py-3 font-semibold text-gray-500 hover:bg-gray-50">เช็คสถานะ</button>
-        </div>
-
-        <div id="register-section" class="p-6 space-y-4">
-            <div>
-                <label class="block text-sm font-medium text-gray-700">ชื่อของคุณ</label>
-                <input type="text" id="name" class="mt-1 block w-full rounded-lg border-gray-300 bg-gray-50 p-2.5 shadow-sm focus:border-blue-500 focus:ring-blue-500 border" placeholder="ชื่อเล่น หรือ นามแฝง">
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">อีเมล</label>
-                <input type="email" id="email" class="mt-1 block w-full rounded-lg border-gray-300 bg-gray-50 p-2.5 shadow-sm focus:border-blue-500 focus:ring-blue-500 border" placeholder="example@mail.com">
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">รหัสผ่าน (สำหรับเช็คผล)</label>
-                <input type="password" id="password" class="mt-1 block w-full rounded-lg border-gray-300 bg-gray-50 p-2.5 shadow-sm focus:border-blue-500 focus:ring-blue-500 border">
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">ลิงก์ Facebook (สำหรับติดต่อ)</label>
-                <input type="url" id="fbLink" class="mt-1 block w-full rounded-lg border-gray-300 bg-gray-50 p-2.5 shadow-sm focus:border-blue-500 focus:ring-blue-500 border" placeholder="https://facebook.com/...">
-            </div>
-            <button onclick="submitApp()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition shadow-lg">🚀 ส่งใบสมัคร</button>
-        </div>
-
-        <div id="status-section" class="p-6 space-y-4 hidden">
-            <p class="text-center text-gray-600">กรอกอีเมลเพื่อเช็คผลการสมัคร</p>
-            <input type="email" id="checkEmail" class="block w-full rounded-lg border p-2.5" placeholder="อีเมลที่ใช้สมัคร">
-            <button onclick="checkStatus()" class="w-full bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 rounded-lg transition">🔍 ตรวจสอบ</button>
+    <div id="auth-page" class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-slate-200">
+            <h2 class="text-3xl font-bold text-center text-indigo-600 mb-2">เข้าสู่ระบบ</h2>
+            <p class="text-center text-gray-500 mb-6">ระบบจัดการสปอนเซอร์ครบวงจร</p>
             
-            <div id="resultArea" class="hidden mt-4 p-4 rounded-lg border text-center">
-                <h3 id="statusTitle" class="text-lg font-bold"></h3>
-                <div id="statusBadge" class="inline-block px-4 py-1 rounded-full text-sm font-bold mt-2"></div>
-                <p id="adminNote" class="mt-2 text-sm text-gray-600"></p>
+            <input type="email" id="login-email" placeholder="อีเมล" class="w-full p-3 mb-3 border rounded-lg bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none">
+            <input type="password" id="login-pass" placeholder="รหัสผ่าน" class="w-full p-3 mb-6 border rounded-lg bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none">
+            
+            <button onclick="login()" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 transition">เข้าสู่ระบบ</button>
+            <p class="text-center mt-4 text-sm text-gray-600">ยังไม่มีบัญชี? <a href="#" onclick="toggleAuthMode()" class="text-indigo-600 font-bold">สมัครสมาชิก</a></p>
+        </div>
+    </div>
+
+    <div id="dashboard-page" class="hidden">
+        <nav class="bg-white shadow-sm border-b px-6 py-4 flex justify-between items-center sticky top-0 z-50">
+            <div class="font-bold text-xl text-indigo-600"><i class="fa-solid fa-gamepad"></i> SPON-SYS</div>
+            <div class="flex items-center gap-4">
+                <span id="user-display-name" class="text-sm font-medium text-gray-600"></span>
+                <button onclick="logout()" class="text-red-500 text-sm hover:underline">ออกจากระบบ</button>
+            </div>
+        </nav>
+
+        <div class="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-slate-200 rounded-full mx-auto flex items-center justify-center text-3xl mb-3">👤</div>
+                        <h3 id="profile-name" class="text-xl font-bold">กำลังโหลด...</h3>
+                        <p id="profile-email" class="text-sm text-gray-500 mb-4">...</p>
+                        
+                        <div id="reputation-badge" class="inline-block px-3 py-1 rounded-full text-sm font-bold bg-gray-100 text-gray-500">
+                            ปกติ
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2">สถานะเครดิตจากแอดมิน</p>
+                    </div>
+                </div>
+
+                <div class="bg-indigo-50 p-6 rounded-xl border border-indigo-100">
+                    <h4 class="font-bold text-indigo-800 mb-2"><i class="fa-solid fa-bullhorn"></i> ประกาศจากระบบ</h4>
+                    <p id="announcement-text" class="text-sm text-indigo-700 leading-relaxed">ยังไม่มีประกาศใหม่</p>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 space-y-6">
+                
+                <div id="status-banner" class="hidden p-6 rounded-xl text-white shadow-lg transition-all">
+                    </div>
+
+                <div id="application-form" class="bg-white p-6 rounded-xl shadow-sm border hidden">
+                    <h3 class="text-lg font-bold mb-4 border-b pb-2">📝 ยื่นขอรับสปอนเซอร์</h3>
+                    <div class="grid gap-4">
+                        <div>
+                            <label class="text-sm text-gray-600">ชื่อ-นามสกุล (จริง)</label>
+                            <input type="text" id="app-name" class="w-full border p-2 rounded mt-1">
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-600">ลิงก์ Facebook / Discord</label>
+                            <input type="text" id="app-link" class="w-full border p-2 rounded mt-1">
+                        </div>
+                        <div>
+                            <label class="text-sm text-gray-600">ทำไมถึงอยากได้สปอนเซอร์?</label>
+                            <textarea id="app-reason" class="w-full border p-2 rounded mt-1" rows="3"></textarea>
+                        </div>
+                        <button onclick="submitApplication()" class="bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 font-bold">ยืนยันการสมัคร</button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border overflow-hidden">
+                    <div class="p-4 border-b bg-gray-50 flex justify-between items-center">
+                        <h3 class="font-bold text-gray-700">📜 ประวัติการรับเงิน/ไอเทม</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <thead class="bg-gray-100 text-gray-600">
+                                <tr>
+                                    <th class="p-3">วันที่</th>
+                                    <th class="p-3">รายการ</th>
+                                    <th class="p-3 text-right">จำนวน</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-list">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, addDoc, collection, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDmon8gBvojsAitNY3AvyzmLAzQ_3pIXQI",
@@ -69,92 +117,158 @@
         };
 
         const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
         const db = getFirestore(app);
+        let currentUser = null;
 
-        // Function: Submit Application
-        window.submitApp = async () => {
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const fbLink = document.getElementById('fbLink').value;
-
-            if(!name || !email || !password || !fbLink) {
-                alert("กรุณากรอกข้อมูลให้ครบถ้วน");
-                return;
+        // --- AUTH FUNCTIONS ---
+        window.login = async () => {
+            const email = document.getElementById('login-email').value;
+            const pass = document.getElementById('login-pass').value;
+            try {
+                // Check if user wants to register (Toggle logic is simple UI swap, here we use login for both for simplicity in demo or create separate func)
+                // For this demo, let's auto-detect: Try login, if error user-not-found, try register
+                try {
+                    await signInWithEmailAndPassword(auth, email, pass);
+                } catch (e) {
+                    if(e.code === 'auth/user-not-found') {
+                        if(confirm("ไม่พบบัญชีนี้ ต้องการสมัครใหม่หรือไม่?")) {
+                            const cred = await createUserWithEmailAndPassword(auth, email, pass);
+                            // Create User Profile in Firestore
+                            await setDoc(doc(db, "users", cred.user.uid), {
+                                email: email,
+                                role: 'user',
+                                reputation: 'normal',
+                                createdAt: new Date()
+                            });
+                        }
+                    } else {
+                        alert("รหัสผ่านไม่ถูกต้อง หรือเกิดข้อผิดพลาด: " + e.message);
+                    }
+                }
+            } catch (error) {
+                console.error(error);
             }
+        };
+
+        window.logout = () => signOut(auth);
+
+        // --- MAIN LOGIC ---
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUser = user;
+                document.getElementById('auth-page').classList.add('hidden');
+                document.getElementById('dashboard-page').classList.remove('hidden');
+                loadUserData(user.uid);
+                checkApplication(user.uid);
+                loadHistory(user.uid);
+                loadAnnouncement();
+            } else {
+                document.getElementById('auth-page').classList.remove('hidden');
+                document.getElementById('dashboard-page').classList.add('hidden');
+            }
+        });
+
+        async function loadUserData(uid) {
+            const docRef = doc(db, "users", uid);
+            onSnapshot(docRef, (doc) => {
+                if (doc.exists()) {
+                    const data = doc.data();
+                    document.getElementById('user-display-name').innerText = data.email;
+                    document.getElementById('profile-email').innerText = data.email;
+                    document.getElementById('profile-name').innerText = "Member"; // Can add name field to user doc later
+
+                    // Reputation
+                    const repBadge = document.getElementById('reputation-badge');
+                    if(data.reputation === 'good') {
+                        repBadge.className = "inline-block px-3 py-1 rounded-full text-sm font-bold bg-green-100 text-green-700";
+                        repBadge.innerHTML = '<i class="fa-solid fa-check-circle"></i> เครดิตดีเยี่ยม';
+                    } else if (data.reputation === 'bad') {
+                        repBadge.className = "inline-block px-3 py-1 rounded-full text-sm font-bold bg-red-100 text-red-700";
+                        repBadge.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> เครดิตไม่ดี';
+                    } else {
+                        repBadge.className = "inline-block px-3 py-1 rounded-full text-sm font-bold bg-gray-100 text-gray-600";
+                        repBadge.innerHTML = 'เครดิตปกติ';
+                    }
+                }
+            });
+        }
+
+        function checkApplication(uid) {
+            const q = query(collection(db, "applications"), where("uid", "==", uid));
+            onSnapshot(q, (snapshot) => {
+                const form = document.getElementById('application-form');
+                const banner = document.getElementById('status-banner');
+
+                if (snapshot.empty) {
+                    form.classList.remove('hidden');
+                    banner.classList.add('hidden');
+                } else {
+                    form.classList.add('hidden');
+                    banner.classList.remove('hidden');
+                    
+                    const data = snapshot.docs[0].data();
+                    if(data.status === 'pending') {
+                        banner.className = "p-6 rounded-xl text-yellow-800 bg-yellow-100 shadow-sm border border-yellow-200";
+                        banner.innerHTML = `<h3 class="font-bold text-xl"><i class="fa-solid fa-clock"></i> กำลังตรวจสอบ</h3><p>แอดมินกำลังพิจารณาใบสมัครของคุณ</p>`;
+                    } else if (data.status === 'accepted') {
+                        banner.className = "p-6 rounded-xl text-white bg-gradient-to-r from-green-500 to-green-600 shadow-lg";
+                        banner.innerHTML = `<h3 class="font-bold text-xl"><i class="fa-solid fa-check-circle"></i> ยินดีด้วย! คุณได้รับสปอนเซอร์</h3><p>คุณเป็นส่วนหนึ่งของทีมแล้ว กรุณารอการติดต่อกลับหรือดูประวัติการโอน</p>`;
+                    } else {
+                        banner.className = "p-6 rounded-xl text-white bg-gradient-to-r from-red-500 to-red-600 shadow-lg";
+                        banner.innerHTML = `<h3 class="font-bold text-xl"><i class="fa-solid fa-circle-xmark"></i> ไม่ผ่านการพิจารณา</h3><p>ขออภัย คุณสมบัติยังไม่ตรงตามที่กำหนด</p>`;
+                    }
+                }
+            });
+        }
+
+        window.submitApplication = async () => {
+            const name = document.getElementById('app-name').value;
+            const link = document.getElementById('app-link').value;
+            const reason = document.getElementById('app-reason').value;
+
+            if(!name || !link) return alert("กรุณากรอกข้อมูลให้ครบ");
 
             try {
                 await addDoc(collection(db, "applications"), {
-                    name, email, password, fbLink,
-                    status: "pending", // pending, accepted, rejected
-                    reputation: "normal", // normal, good, bad
+                    uid: currentUser.uid,
+                    email: currentUser.email,
+                    name, link, reason,
+                    status: 'pending',
                     timestamp: new Date()
                 });
-                alert("ส่งใบสมัครเรียบร้อย! รอแอดมินพิจารณา");
-                location.reload();
-            } catch (e) {
-                console.error("Error: ", e);
-                alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
-            }
-        };
+            } catch(e) { console.error(e); alert("Error submitting"); }
+        }
 
-        // Function: Check Status
-        window.checkStatus = async () => {
-            const email = document.getElementById('checkEmail').value;
-            const q = query(collection(db, "applications"), where("email", "==", email));
-            const querySnapshot = await getDocs(q);
-            
-            const resultArea = document.getElementById('resultArea');
-            const statusTitle = document.getElementById('statusTitle');
-            const statusBadge = document.getElementById('statusBadge');
-            
-            resultArea.classList.remove('hidden');
+        function loadHistory(uid) {
+            const q = query(collection(db, "transactions"), where("uid", "==", uid)); // Order by date needed index, skip for now
+            onSnapshot(q, (snapshot) => {
+                const tbody = document.getElementById('history-list');
+                tbody.innerHTML = "";
+                if(snapshot.empty) {
+                    tbody.innerHTML = `<tr><td colspan="3" class="p-4 text-center text-gray-400">ยังไม่มีประวัติ</td></tr>`;
+                    return;
+                }
+                snapshot.forEach(doc => {
+                    const d = doc.data();
+                    const date = d.timestamp ? new Date(d.timestamp.seconds * 1000).toLocaleDateString('th-TH') : '-';
+                    tbody.innerHTML += `
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="p-3 text-gray-500">${date}</td>
+                            <td class="p-3 font-medium text-gray-800">${d.note || 'รับเงินสนับสนุน'}</td>
+                            <td class="p-3 text-right font-bold text-green-600">+${d.amount}</td>
+                        </tr>
+                    `;
+                });
+            });
+        }
 
-            if (querySnapshot.empty) {
-                statusTitle.innerText = "ไม่พบข้อมูล";
-                statusBadge.className = "hidden";
-                return;
-            }
-
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                statusTitle.innerText = `สวัสดีคุณ ${data.name}`;
-                statusBadge.classList.remove('hidden');
-
-                if (data.status === 'pending') {
-                    statusBadge.innerText = "⏳ กำลังพิจารณา";
-                    statusBadge.className = "inline-block px-4 py-1 rounded-full text-sm font-bold mt-2 bg-yellow-100 text-yellow-800";
-                    resultArea.className = "mt-4 p-4 rounded-lg border border-yellow-200 bg-yellow-50 text-center";
-                } else if (data.status === 'accepted') {
-                    statusBadge.innerText = "✅ รับสปอนเซอร์แล้ว";
-                    statusBadge.className = "inline-block px-4 py-1 rounded-full text-sm font-bold mt-2 bg-green-100 text-green-800";
-                    resultArea.className = "mt-4 p-4 rounded-lg border border-green-200 bg-green-50 text-center";
-                } else {
-                    statusBadge.innerText = "❌ ไม่ผ่านการพิจารณา";
-                    statusBadge.className = "inline-block px-4 py-1 rounded-full text-sm font-bold mt-2 bg-red-100 text-red-800";
-                    resultArea.className = "mt-4 p-4 rounded-lg border border-red-200 bg-red-50 text-center";
+        function loadAnnouncement() {
+            onSnapshot(doc(db, "settings", "announcement"), (doc) => {
+                if(doc.exists()) {
+                    document.getElementById('announcement-text').innerText = doc.data().text;
                 }
             });
-        };
-
-        // UI Tabs Logic
-        window.showTab = (tab) => {
-            const registerSec = document.getElementById('register-section');
-            const statusSec = document.getElementById('status-section');
-            const btnReg = document.getElementById('btn-register');
-            const btnStat = document.getElementById('btn-status');
-
-            if(tab === 'register') {
-                registerSec.classList.remove('hidden');
-                statusSec.classList.add('hidden');
-                btnReg.className = "w-1/2 py-3 font-semibold text-blue-600 border-b-2 border-blue-600 bg-blue-50";
-                btnStat.className = "w-1/2 py-3 font-semibold text-gray-500 hover:bg-gray-50";
-            } else {
-                registerSec.classList.add('hidden');
-                statusSec.classList.remove('hidden');
-                btnStat.className = "w-1/2 py-3 font-semibold text-blue-600 border-b-2 border-blue-600 bg-blue-50";
-                btnReg.className = "w-1/2 py-3 font-semibold text-gray-500 hover:bg-gray-50";
-            }
         }
     </script>
 </body>
